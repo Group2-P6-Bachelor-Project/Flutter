@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CameraScreen.dart';
 import 'package:flutter_application_1/CustomOutputImage.dart';
 import 'package:flutter_application_1/InformationScreen.dart';
+import 'package:flutter_application_1/RecycleButtonWidget.dart';
 import 'package:flutter_application_1/styles.dart';
+import 'FeedbackScreen.dart';
 
 class OutputScreen extends StatelessWidget {
   const OutputScreen({super.key});
@@ -38,35 +39,30 @@ class OutputScreen extends StatelessWidget {
               ),
             ],
           ),
-          const Spacer(),
           Container(
             height: 60,
             width: 400,
-            margin: const EdgeInsets.only(bottom: 100),
-            child: FloatingActionButton.extended(
-              label: const Text(
-                'Want to recycle more?',
-                style: TextStyle(
-                  fontFamily: 'Roboto',
-                  fontStyle: FontStyle.normal,
-                  fontSize: 25,
-                  color: Colors.white,
-                ),
+            margin: const EdgeInsets.only(top: 50),
+            child: const RecycleButtonWidget(),
+          ),
+          const SizedBox(height: 20),
+          InkWell(
+            child: const Text(
+              'Wrong category? Click here!',
+              style: TextStyle(
+                fontSize: 18.0,
+                color: Colors.blue,
+                decoration: TextDecoration.underline,
               ),
-              backgroundColor: Colors.brown[800],
-              icon: const Icon(
-                Icons.arrow_back,
-                size: 25.0,
-                color: Colors.white,
-              ),
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CameraScreen()),
-                );
-              },
             ),
-          )
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const FeedbackImageGrid()),
+              );
+            },
+          ),
         ],
       ),
     );
