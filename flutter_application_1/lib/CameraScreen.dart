@@ -1,8 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
+import 'package:flutter_application_1/OutputScreen.dart';
+import 'package:flutter_application_1/InformationScreen.dart';
+import 'package:flutter_application_1/styles.dart';
+import 'package:flutter_application_1/PictureButton.dart';
 
 class CameraScreen extends StatefulWidget {
-  const CameraScreen();
+  const CameraScreen({super.key});
 
   @override
   State<CameraScreen> createState() => _CameraScreenState();
@@ -33,7 +38,9 @@ class _CameraScreenState extends State<CameraScreen> {
       }
       setState(() {}); //Refreshes the widget
     }).catchError((e) {
-      print(e);
+      if (kDebugMode) {
+        print(e);
+      }
     });
   }
 
@@ -47,57 +54,46 @@ class _CameraScreenState extends State<CameraScreen> {
   Widget build(BuildContext context) {
     if (cameraController.value.isInitialized) {
       return Scaffold(
+          appBar: CustomAppBar(
+              title: 'SortItOut',
+              trailing: IconButton(
+                icon: const Icon(Icons.info_outline),
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const InformationScreen()),
+                  );
+                },
+              )),
           body: Stack(
-        children: [
-          CameraPreview(cameraController),
-          GestureDetector(
-              onTap: () {},
-              child: button(
-                  Icons.flip_camera_android_outlined, Alignment.bottomLeft)),
-          GestureDetector(
-              onTap: () {
-                cameraController.takePicture().then((XFile? file) {
-                  if (mounted) {
-                    if (file != null) {
-                      print('Picture saved til ${file.path}');
+            children: [
+              CameraPreview(cameraController),
+              GestureDetector(
+                onTap: () {
+                  cameraController.takePicture().then((XFile? file) {
+                    if (mounted) {
+                      if (file != null) {
+                        if (kDebugMode) {
+                          print('Picture saved to ${file.path}');
+                        }
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const OutputScreen()),
+                        );
+                      }
                     }
-                  }
-                });
-              },
-              child: button(Icons.camera_alt_outlined, Alignment.bottomCenter)),
-        ],
-      ));
-    } else {
-      return SizedBox();
-    }
-  }
-
-  Widget button(IconData icon, Alignment alignment) {
-    return Align(
-        alignment: alignment,
-        child: Container(
-            margin: const EdgeInsets.only(
-              left: 20,
-              bottom: 20,
-            ),
-            height: 50,
-            width: 50,
-            decoration: const BoxDecoration(
-              shape: BoxShape.circle,
-              color: Colors.white,
-              boxShadow: [
-                BoxShadow(
-                  color: Colors.black26,
-                  offset: Offset(2, 2),
-                  blurRadius: 10,
-                ),
-              ],
-            ),
-            child: Center(
-              child: Icon(
-                icon,
-                color: Colors.black54,
+                  });
+                },
+                // ignore: prefer_const_constructors
+                child: PictureButton(
+                    Icons.camera_alt_outlined, Alignment.bottomCenter),
               ),
-            )));
+            ],
+          ));
+    } else {
+      return const SizedBox();
+    }
   }
 }

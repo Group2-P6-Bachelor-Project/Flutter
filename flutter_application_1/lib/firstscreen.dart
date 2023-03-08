@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/CameraScreen.dart';
 
 class MyHomePageState extends StatelessWidget {
+  const MyHomePageState({super.key});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,7 +17,7 @@ class MyHomePageState extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              margin: EdgeInsets.only(top: 75),
+              margin: const EdgeInsets.only(top: 75),
               height: 50,
               width: 400,
               color: Colors.amber,
@@ -30,7 +32,7 @@ class MyHomePageState extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               height: 50,
               width: 400,
@@ -46,17 +48,18 @@ class MyHomePageState extends StatelessWidget {
                 ),
               ),
             ),
-            Spacer(),
+            const Spacer(),
             Container(
               height: 60,
               width: 200,
-              margin: EdgeInsets.only(bottom: 50),
+              margin: const EdgeInsets.only(bottom: 50),
               child: ElevatedButton(
                 child: const Text('Begin Recycling'),
                 onPressed: () {
                   Navigator.push(
                     context,
-                    MaterialPageRoute(builder: (context) => CameraScreen()),
+                    MaterialPageRoute(
+                        builder: (context) => const CameraScreen()),
                   );
                 },
               ),
