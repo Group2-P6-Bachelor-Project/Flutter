@@ -1,25 +1,15 @@
+import 'package:flutter/foundation.dart';
+
 import 'package:flutter/material.dart';
 // import 'package:flutter_application_1/VideoAppTutorial.dart';
 import 'package:flutter_application_1/styles.dart';
 import 'package:flutter_application_1/CustomCategoryListTile.dart';
 import 'EnvironmentalImpactSection.dart';
+import 'package:flutter_application_1/CameraScreen.dart';
 
 class InformationScreen extends StatelessWidget {
   // ignore: use_key_in_widget_constructors
   const InformationScreen({Key? key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-      title: 'Recycling Methods',
-      home: RecyclingScreen(),
-    );
-  }
-}
-
-class RecyclingScreen extends StatelessWidget {
-  // ignore: use_key_in_widget_constructors
-  const RecyclingScreen({Key? key});
 
   @override
   Widget build(BuildContext context) {
