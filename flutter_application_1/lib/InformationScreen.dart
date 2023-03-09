@@ -16,8 +16,6 @@ class InformationScreen extends StatelessWidget {
         title: 'Information',
         leading: IconButton(
           icon: const Icon(Icons.arrow_back_ios_new_outlined),
-          //Virker ikke som intentionen er, da den popper til en sort skærm
-          //og ikke til tidligere screen.
           onPressed: () {
             Navigator.pop(context);
           },

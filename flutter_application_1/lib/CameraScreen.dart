@@ -77,11 +77,11 @@ class _CameraScreenState extends State<CameraScreen> {
                         if (kDebugMode) {
                           print('Picture saved to ${file.path}');
                         }
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const OutputScreen()),
-                        );
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const OutputScreen()),
+                            ((route) => false));
                       }
                     }
                   });

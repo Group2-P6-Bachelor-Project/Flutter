@@ -29,11 +29,11 @@ class HomeScreen extends StatelessWidget {
                     const SizedBox(width: 16),
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const CameraScreen()),
-                        );
+                        Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const CameraScreen()),
+                            ((route) => false));
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(
