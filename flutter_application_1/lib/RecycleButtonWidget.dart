@@ -23,7 +23,7 @@ class RecycleButtonWidget extends StatelessWidget {
         color: Colors.white,
       ),
       onPressed: () {
-        Navigator.push(
+        Navigator.pop(
           context,
           MaterialPageRoute(builder: (context) => const CameraScreen()),
         );
