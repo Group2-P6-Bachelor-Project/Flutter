@@ -35,8 +35,7 @@ class FeedbackImageGrid extends StatelessWidget {
                   .map((image) => IconButton(
                         icon: image,
                         onPressed: () {
-                          // ignore: todo
-                          // TODO: Add functionality for button press
+                          Navigator.pop(context);
                         },
                       ))
                   .toList(),

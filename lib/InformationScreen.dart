@@ -53,7 +53,8 @@ class InformationScreen extends StatelessWidget {
                 ),
                 CustomCategoryListTile(
                   title: 'Glass',
-                  subtitle: 'Recyclable items: glass bottles, jars, etc.',
+                  subtitle:
+                      'Recyclable items: glass bottles, jars, glass containers, window glass, mirrors etc.',
                   imagePath: 'assets/Glas.png',
                 ),
                 CustomCategoryListTile(
