@@ -5,7 +5,9 @@ import 'package:flutter_application_1/OutputScreen.dart';
 import 'package:flutter_application_1/InformationScreen.dart';
 import 'package:flutter_application_1/styles.dart';
 import 'package:flutter_application_1/PictureButton.dart';
-
+import 'dart:async';
+import 'dart:io';
+import 'Model.dart';
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
 
@@ -14,6 +16,7 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
+  myModel _myModel = myModel();
   late List<CameraDescription> cameras;
   late CameraController cameraController;
 
@@ -21,6 +24,7 @@ class _CameraScreenState extends State<CameraScreen> {
   void initState() {
     startCamera();
     super.initState();
+    _myModel.loadModel();
   }
 
   void startCamera() async {
@@ -71,12 +75,13 @@ class _CameraScreenState extends State<CameraScreen> {
               CameraPreview(cameraController),
               GestureDetector(
                 onTap: () {
-                  cameraController.takePicture().then((XFile? file) {
+                  final image = cameraController.takePicture().then((XFile? file) {
                     if (mounted) {
                       if (file != null) {
                         if (kDebugMode) {
                           print('Picture saved to ${file.path}');
                         }
+                        _myModel.runModelOnImage(File(file.path));
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
