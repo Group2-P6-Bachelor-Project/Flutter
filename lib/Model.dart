@@ -7,6 +7,7 @@ class myModel {
   late Interpreter _interpreter;
 
   Future<void> loadModel() async {
+    print("Vi er i loadModel");
     try {
       final gpuDelegateV2 = GpuDelegateV2(
         options: GpuDelegateOptionsV2(
@@ -22,6 +23,11 @@ class myModel {
       _interpreter = await Interpreter.fromAsset(
           'assets/converted_model.tflite',
           options: interpreterOptions);
+
+      // Set the input shape of the TFLite model to (1, 260, 260, 3)
+      _interpreter.resizeInputTensor(0, [1, 260, 260, 3]);
+      _interpreter.allocateTensors();
+
       print('Model loaded successfully');
     } catch (e) {
       print('Failed to load model: $e');
@@ -37,12 +43,24 @@ class myModel {
     // ...
     // Assuming the preprocessed image is stored in a variable called 'inputImage'
 // and the image package is imported as 'imglib'
+    print(
+        'Original image dimensions: ${inputImage.width}x${inputImage.height}');
 
-    int height = inputImage.height;
-    int width = inputImage.width;
+    int inputSize = 260; // Replace this with your model's expected input size
+    imglib.Image resizedImage =
+        imglib.copyResize(inputImage, width: inputSize, height: inputSize);
+
+    print(
+        'Resized image dimensions: ${resizedImage.width}x${resizedImage.height}');
+
+    // Assuming the preprocessed image is stored in a variable called 'resizedImage'
+    // and the image package is imported as 'imglib'
+
+    int height = resizedImage.height;
+    int width = resizedImage.width;
     int channels = 3;
 
-    var input = inputImage
+    var input = resizedImage
         .getBytes()
         .buffer
         .asFloat32List()
@@ -55,7 +73,7 @@ class myModel {
     var output = List<num>.filled(numClasses, 0).reshape([1, numClasses]);
     // Run the model
     _interpreter.run(input, output);
-    
+
     // Find the highest confidence prediction and its index
     int highestConfidenceIndex = 0;
     double highestConfidence = output[0][0];
