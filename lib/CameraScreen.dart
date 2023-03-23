@@ -5,6 +5,7 @@ import 'package:flutter_application_1/OutputScreen.dart';
 import 'package:flutter_application_1/InformationScreen.dart';
 import 'package:flutter_application_1/styles.dart';
 import 'package:flutter_application_1/PictureButton.dart';
+import 'package:tflite/tflite.dart';
 import 'dart:async';
 import 'dart:io';
 import 'Model.dart';
@@ -17,13 +18,25 @@ class CameraScreen extends StatefulWidget {
 }
 
 class _CameraScreenState extends State<CameraScreen> {
-  myModel _myModel = myModel();
+  //myModel _myModel = myModel();
   late List<CameraDescription> cameras;
   late CameraController cameraController;
 
+  loadModel() async {
+    await Tflite.loadModel(
+        model: "assets/converted_model.tflite", labels: "assets/labels.txt"
+    );
+  }
+
+  late List _results;
+  String _confidence = "";
+  String _name = "";
+  String numbers = '';
+
   @override
   void initState() {
-    _myModel.loadModel();
+    //_myModel.loadModel();
+    loadModel();
     startCamera();
     super.initState();
   }
@@ -48,6 +61,23 @@ class _CameraScreenState extends State<CameraScreen> {
       }
     });
   }
+
+    runModelOnImage(File path) async {
+    var res = await Tflite.runModelOnImage(
+      path: path.path,
+      numResults: 7,
+      threshold: 0.05,
+      imageMean: 0.0,
+      imageStd: 255.0,
+    );
+    print('result: $res');
+    setState((){
+        _results = res!;
+        String str = _results[0]["label"];
+        _name = str.substring(7);
+        _confidence = _results != null ? (_results[0]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
+      });
+    }
 
   @override
   void dispose() {
@@ -80,10 +110,13 @@ class _CameraScreenState extends State<CameraScreen> {
                       cameraController.takePicture().then((XFile? file) {
                     if (mounted) {
                       if (file != null) {
+                        File newfile = File(file.path);
+                        runModelOnImage(newfile);
+                        print('Label: $_name\nConfidence: $_confidence');
                         if (kDebugMode) {
                           print('Picture saved to ${file.path}');
                         }
-                        _myModel.runModelOnImage(File(file.path));
+                        //_myModel.runModelOnImage(File(file.path));
                         Navigator.pushAndRemoveUntil(
                             context,
                             MaterialPageRoute(
