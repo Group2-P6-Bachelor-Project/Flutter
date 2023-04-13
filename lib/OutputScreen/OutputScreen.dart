@@ -4,6 +4,7 @@ import 'package:flutter_application_1/InformationScreen/InformationScreen.dart';
 import 'package:flutter_application_1/OutputScreen/RecycleButtonWidget.dart';
 import 'package:flutter_application_1/styles.dart';
 import 'package:flutter_application_1/FeedbackScreen/FeedbackScreen.dart';
+import 'dart:math';
 
 class OutputScreen extends StatelessWidget {
   const OutputScreen({super.key});
@@ -34,9 +35,7 @@ class OutputScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 100, bottom: 25),
                 child: const Text('Recycle in:', style: titleTextStyle),
               ),
-              const CustomOutputImage(
-                imagePath: 'assets/Plast.png',
-              ),
+              CustomOutputImage(index: Random().nextInt(6)),
             ],
           ),
           Container(
