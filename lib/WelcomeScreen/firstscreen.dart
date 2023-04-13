@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CameraScreen.dart';
+import 'package:flutter_application_1/CameraScreen/CameraScreen.dart';
 import 'package:flutter_application_1/styles.dart';
 
 class HomeScreen extends StatelessWidget {

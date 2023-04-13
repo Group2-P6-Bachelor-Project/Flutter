@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CustomOutputImage.dart';
-import 'package:flutter_application_1/InformationScreen.dart';
-import 'package:flutter_application_1/RecycleButtonWidget.dart';
+import 'package:flutter_application_1/OutputScreen/CustomOutputImage.dart';
+import 'package:flutter_application_1/InformationScreen/InformationScreen.dart';
+import 'package:flutter_application_1/OutputScreen/RecycleButtonWidget.dart';
 import 'package:flutter_application_1/styles.dart';
-import 'FeedbackScreen.dart';
+import 'package:flutter_application_1/FeedbackScreen/FeedbackScreen.dart';
 
 class OutputScreen extends StatelessWidget {
   const OutputScreen({super.key});

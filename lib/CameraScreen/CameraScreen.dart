@@ -1,14 +1,14 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter_application_1/OutputScreen.dart';
-import 'package:flutter_application_1/InformationScreen.dart';
+import 'package:flutter_application_1/OutputScreen/OutputScreen.dart';
+import 'package:flutter_application_1/InformationScreen/InformationScreen.dart';
 import 'package:flutter_application_1/styles.dart';
-import 'package:flutter_application_1/PictureButton.dart';
+import 'package:flutter_application_1/CameraScreen/PictureButton.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:async';
 import 'dart:io';
-import 'Model.dart';
+import '../MachineLearning/Model.dart';
 
 class CameraScreen extends StatefulWidget {
   const CameraScreen({super.key});
