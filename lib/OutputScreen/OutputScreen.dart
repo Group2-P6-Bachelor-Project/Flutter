@@ -35,6 +35,8 @@ class OutputScreen extends StatelessWidget {
                 margin: const EdgeInsets.only(top: 100, bottom: 25),
                 child: const Text('Recycle in:', style: titleTextStyle),
               ),
+              // Ths line of code needs to be changed to the label given by the model, 
+              // and then the outputscreen should work just fine.
               CustomOutputImage(index: Random().nextInt(6)),
             ],
           ),
