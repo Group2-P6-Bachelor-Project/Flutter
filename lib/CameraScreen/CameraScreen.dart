@@ -66,16 +66,16 @@ class _CameraScreenState extends State<CameraScreen> {
     var res = await Tflite.runModelOnImage(
       path: path.path,
       numResults: 7,
-      threshold: 0.05,
-      imageMean: 0.0,
-      imageStd: 255.0,
+      threshold: 0.0,
+      imageMean: 117.0,
+      imageStd: 1.0,
     );
     print('result: $res');
     setState((){
         _results = res!;
-        String str = _results[0]["label"];
+        String str = _results[1]["label"];
         _name = str.substring(7);
-        _confidence = _results != null ? (_results[0]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
+        _confidence = _results != null ? (_results[1]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
       });
     }
 
