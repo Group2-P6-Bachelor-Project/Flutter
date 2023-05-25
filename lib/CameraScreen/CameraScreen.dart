@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter_application_1/OutputScreen/OutputScreen.dart';
-import 'package:flutter_application_1/InformationScreen/InformationScreen.dart';
-import 'package:flutter_application_1/styles.dart';
-import 'package:flutter_application_1/CameraScreen/PictureButton.dart';
+import 'package:sort_it_out/OutputScreen/OutputScreen.dart';
+import 'package:sort_it_out/InformationScreen/InformationScreen.dart';
+import 'package:sort_it_out/styles.dart';
+import 'package:sort_it_out/CameraScreen/PictureButton.dart';
 import 'package:tflite/tflite.dart';
 import 'dart:async';
 import 'dart:io';

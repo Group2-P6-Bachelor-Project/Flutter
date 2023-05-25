@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CameraScreen/CameraScreen.dart';
-import 'package:flutter_application_1/styles.dart';
+import 'package:sort_it_out/CameraScreen/CameraScreen.dart';
+import 'package:sort_it_out/styles.dart';
 import 'package:flutter/rendering.dart' show TextShadow;
 
 class HomeScreen extends StatelessWidget {

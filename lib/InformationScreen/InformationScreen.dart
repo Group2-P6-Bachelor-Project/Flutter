@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-// import 'package:flutter_application_1/VideoAppTutorial.dart';
-import 'package:flutter_application_1/styles.dart';
-import 'package:flutter_application_1/InformationScreen/CustomCategoryListTile.dart';
+// import 'package:sort_it_out/VideoAppTutorial.dart';
+import 'package:sort_it_out/styles.dart';
+import 'package:sort_it_out/InformationScreen/CustomCategoryListTile.dart';
 import 'EnvironmentalImpactSection.dart';
 
 class InformationScreen extends StatelessWidget {
