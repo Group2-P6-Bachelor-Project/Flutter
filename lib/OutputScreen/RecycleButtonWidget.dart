@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/CameraScreen/CameraScreen.dart';
+import 'package:sort_it_out/CameraScreen/CameraScreen.dart';
 
 class RecycleButtonWidget extends StatelessWidget {
   const RecycleButtonWidget({Key? key}) : super(key: key);

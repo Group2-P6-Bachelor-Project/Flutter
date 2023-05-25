@@ -1,4 +1,4 @@
-package com.example.flutter_application_1
+package aau.grouptwo.sort_it_out
 
 import io.flutter.embedding.android.FlutterActivity
 
