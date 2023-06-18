@@ -7,7 +7,8 @@ import 'package:sort_it_out/FeedbackScreen/FeedbackScreen.dart';
 import 'dart:math';
 
 class OutputScreen extends StatelessWidget {
-  const OutputScreen({super.key});
+  final int index;
+  const OutputScreen({Key? key, required this.index}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +38,7 @@ class OutputScreen extends StatelessWidget {
               ),
               // Ths line of code needs to be changed to the label given by the model, 
               // and then the outputscreen should work just fine.
-              CustomOutputImage(index: Random().nextInt(6)),
+              CustomOutputImage(index: index),
             ],
           ),
           Container(

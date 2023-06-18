@@ -19,6 +19,7 @@ class CameraScreen extends StatefulWidget {
 
 class _CameraScreenState extends State<CameraScreen> {
   //myModel _myModel = myModel();
+  Future<List>? futureRes;
   late List<CameraDescription> cameras;
   late CameraController cameraController;
 
@@ -62,7 +63,20 @@ class _CameraScreenState extends State<CameraScreen> {
     });
   }
 
-    runModelOnImage(File path) async {
+  void takePictureAndUpdateResult() async {
+    final image = await cameraController.takePicture();
+    if (mounted) {
+      if (image != null) {
+        File newfile = File(image.path);
+        final result = runModelOnImage(newfile);
+        setState(() {
+          futureRes = result;
+        });
+      }
+    }
+  }
+
+    Future<List> runModelOnImage(File path) async {
     var res = await Tflite.runModelOnImage(
       path: path.path,
       numResults: 7,
@@ -70,13 +84,16 @@ class _CameraScreenState extends State<CameraScreen> {
       imageMean: 117.0,
       imageStd: 1.0,
     );
-    print('result: $res');
-    setState((){
-        _results = res!;
-        String str = _results[1]["label"];
-        _name = str.substring(7);
-        _confidence = _results != null ? (_results[1]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
-      });
+      //var first = res!.first;
+       print('name: ' + res!.first["index"].toString());
+       print('result: $res');
+       setState((){
+           _results = res!;
+           //String str = _results[1]["label"];
+           //_name = str.substring(7);
+           //_confidence = _results != null ? (_results[1]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
+       });
+       return res;
     }
 
   @override
@@ -101,36 +118,38 @@ class _CameraScreenState extends State<CameraScreen> {
                   );
                 },
               )),
-          body: Stack(
-            children: [
-              CameraPreview(cameraController),
-              GestureDetector(
-                onTap: () {
-                  final image =
-                      cameraController.takePicture().then((XFile? file) {
-                    if (mounted) {
-                      if (file != null) {
-                        File newfile = File(file.path);
-                        runModelOnImage(newfile);
-                        print('Label: $_name\nConfidence: $_confidence');
-                        if (kDebugMode) {
-                          print('Picture saved to ${file.path}');
-                        }
-                        //_myModel.runModelOnImage(File(file.path));
-                        Navigator.pushAndRemoveUntil(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const OutputScreen()),
-                            ((route) => false));
-                      }
-                    }
-                  });
-                },
-                // ignore: prefer_const_constructors
-                child: PictureButton(
-                    Icons.camera_alt_outlined, Alignment.bottomCenter),
-              ),
-            ],
+          body: FutureBuilder<List>(
+            future: futureRes,
+            builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return CircularProgressIndicator();
+              } else if (snapshot.hasError) {
+                return Text('Error: ${snapshot.error}');
+              } else {
+                var result = snapshot.data;
+
+                // use `result` here ...
+                if (result != null) {
+                  var prediction = result.first["index"];
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (context) => OutputScreen(index: prediction)),
+                      ((route) => false)
+                  );
+                  return SizedBox.shrink(); // Empty widget since we navigated away
+                } else {
+                  return Stack(
+                    children: [
+                      CameraPreview(cameraController),
+                      GestureDetector(
+                        onTap: takePictureAndUpdateResult,
+                        child: PictureButton(Icons.camera_alt_outlined, Alignment.bottomCenter),
+                      ),
+                    ],
+                  );
+                }
+              }
+            },
           ));
     } else {
       return const SizedBox();

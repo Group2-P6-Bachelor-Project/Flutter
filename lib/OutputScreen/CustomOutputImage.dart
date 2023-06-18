@@ -7,10 +7,10 @@ class CustomOutputImage extends StatelessWidget {
 
   static const List<String> _imagePaths = [
     'assets/Pap.png',
+    'assets/Glas.png',
+    'assets/Metal.png',
     'assets/Papir.png',
     'assets/Plast.png',
-    'assets/Metal.png',
-    'assets/Glas.png',
     'assets/RestAffald.png',
   ];
 
