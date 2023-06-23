@@ -25,8 +25,7 @@ class _CameraScreenState extends State<CameraScreen> {
 
   loadModel() async {
     await Tflite.loadModel(
-        model: "assets/converted_model.tflite", labels: "assets/labels.txt"
-    );
+        model: "assets/converted_model.tflite", labels: "assets/labels.txt");
   }
 
   late List _results;
@@ -76,7 +75,7 @@ class _CameraScreenState extends State<CameraScreen> {
     }
   }
 
-    Future<List> runModelOnImage(File path) async {
+  Future<List> runModelOnImage(File path) async {
     var res = await Tflite.runModelOnImage(
       path: path.path,
       numResults: 7,
@@ -84,17 +83,17 @@ class _CameraScreenState extends State<CameraScreen> {
       imageMean: 117.0,
       imageStd: 1.0,
     );
-      //var first = res!.first;
-       print('name: ' + res!.first["index"].toString());
-       print('result: $res');
-       setState((){
-           _results = res!;
-           //String str = _results[1]["label"];
-           //_name = str.substring(7);
-           //_confidence = _results != null ? (_results[1]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
-       });
-       return res;
-    }
+    //var first = res!.first;
+    print('name: ' + res!.first["index"].toString());
+    print('result: $res');
+    setState(() {
+      _results = res!;
+      //String str = _results[1]["label"];
+      //_name = str.substring(7);
+      //_confidence = _results != null ? (_results[1]['confidence'] * 100.0).toString().substring(0,7) + "%" : "";
+    });
+    return res;
+  }
 
   @override
   void dispose() {
@@ -122,7 +121,7 @@ class _CameraScreenState extends State<CameraScreen> {
             future: futureRes,
             builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
               if (snapshot.connectionState == ConnectionState.waiting) {
-                return CircularProgressIndicator();
+                return const Center(child: CircularProgressIndicator());
               } else if (snapshot.hasError) {
                 return Text('Error: ${snapshot.error}');
               } else {
@@ -131,19 +130,25 @@ class _CameraScreenState extends State<CameraScreen> {
                 // use `result` here ...
                 if (result != null) {
                   var prediction = result.first["index"];
-                  Navigator.pushAndRemoveUntil(
+                  WidgetsBinding.instance!.addPostFrameCallback((_) {
+                    Navigator.pushAndRemoveUntil(
                       context,
-                      MaterialPageRoute(builder: (context) => OutputScreen(index: prediction)),
-                      ((route) => false)
-                  );
-                  return SizedBox.shrink(); // Empty widget since we navigated away
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              OutputScreen(index: prediction)),
+                      ((route) => false),
+                    );
+                  });
+                  return const SizedBox
+                      .shrink(); // Empty widget since we navigated away
                 } else {
                   return Stack(
                     children: [
                       CameraPreview(cameraController),
                       GestureDetector(
                         onTap: takePictureAndUpdateResult,
-                        child: PictureButton(Icons.camera_alt_outlined, Alignment.bottomCenter),
+                        child: const PictureButton(
+                            Icons.camera_alt_outlined, Alignment.bottomCenter),
                       ),
                     ],
                   );
