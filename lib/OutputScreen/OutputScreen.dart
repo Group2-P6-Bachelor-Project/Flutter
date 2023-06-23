@@ -7,7 +7,10 @@ import 'package:sort_it_out/FeedbackScreen/FeedbackScreen.dart';
 
 class OutputScreen extends StatelessWidget {
   final int index;
-  const OutputScreen({Key? key, required this.index}) : super(key: key);
+  final double confidence;
+
+  const OutputScreen({Key? key, required this.index, required this.confidence})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +39,26 @@ class OutputScreen extends StatelessWidget {
                 child: const Text('Recycle in:', style: titleTextStyle),
               ),
               CustomOutputImage(index: index),
+              Padding(
+                padding: const EdgeInsets.only(top: 25),
+                child: Column(
+                  children: [
+                    Text(
+                      'Confidence is ${confidence.toStringAsFixed(2)}%',
+                      style: subtitleTextStyle.copyWith(
+                        fontSize: 25,
+                        shadows: [
+                          Shadow(
+                            color: Colors.black.withOpacity(0.2),
+                            offset: const Offset(2, 2),
+                            blurRadius: 3,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ],
           ),
           Container(

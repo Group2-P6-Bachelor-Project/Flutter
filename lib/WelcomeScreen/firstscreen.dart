@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sort_it_out/CameraScreen/CameraScreen.dart';
 import 'package:sort_it_out/styles.dart';
-import 'package:flutter/rendering.dart' show TextShadow;
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key, required Key});
@@ -69,6 +68,18 @@ class HomeScreen extends StatelessWidget {
                       const SizedBox(height: 10),
                       Text(
                         'Join the revolution and sort your waste today.',
+                        style: subtitleTextStyle.copyWith(shadows: [
+                          const Shadow(
+                            color: Colors.black,
+                            offset: Offset(1, 1),
+                            blurRadius: 3,
+                          ),
+                        ]),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 10),
+                      Text(
+                        'Get started by taking a photo of your first piece of waste by clicking the button below.',
                         style: subtitleTextStyle.copyWith(shadows: [
                           const Shadow(
                             color: Colors.black,

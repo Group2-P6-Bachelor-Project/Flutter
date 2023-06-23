@@ -1,25 +1,40 @@
 import 'package:flutter/material.dart';
+import 'WelcomeScreen/firstscreen.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final Widget? leading;
   final Widget? trailing;
 
-  const CustomAppBar(
-      {super.key, required this.title, this.leading, this.trailing});
+  const CustomAppBar({
+    Key? key,
+    required this.title,
+    this.leading,
+    this.trailing,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       centerTitle: true,
       backgroundColor: Colors.brown[800],
-      title: Text(
-        title,
-        style: const TextStyle(
-          fontFamily: 'Roboto',
-          fontSize: 30,
-          fontWeight: FontWeight.bold,
-          color: Colors.white,
+      title: GestureDetector(
+        onTap: () {
+          Navigator.pushAndRemoveUntil(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const HomeScreen(Key: null)),
+            (Route<dynamic> route) => false,
+          );
+        },
+        child: Text(
+          title,
+          style: const TextStyle(
+            fontFamily: 'Roboto',
+            fontSize: 30,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
+          ),
         ),
       ),
       leading: leading,

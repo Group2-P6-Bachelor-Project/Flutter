@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:sort_it_out/VideoAppTutorial.dart';
 import 'package:sort_it_out/styles.dart';
 import 'package:sort_it_out/InformationScreen/CustomCategoryListTile.dart';
 import 'EnvironmentalImpactSection.dart';
