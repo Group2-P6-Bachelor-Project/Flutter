@@ -44,7 +44,7 @@ class OutputScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      'Confidence is ${confidence.toStringAsFixed(2)}%',
+                      'Confidence is ${(confidence * 100).toStringAsFixed(2)}%',
                       style: subtitleTextStyle.copyWith(
                         fontSize: 25,
                         shadows: [
